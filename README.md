@@ -2,5 +2,5 @@
 
 !! WORK IN PRPGRESS !!
 
-A shared library for build crux datalog queries with a fluent API.
+A shared go library for building crux datalog queries with a fluent API.
 
