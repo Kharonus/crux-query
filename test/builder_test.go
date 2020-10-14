@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/Kharonus/crux-query/builder"
-	"github.com/Kharonus/crux-query/model"
+	. "github.com/Kharonus/crux-query/model"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -34,10 +34,10 @@ var builderTestCases = []*builderTestSuite{
 		description: "must return correct query for a builder with single find and simple where clause with constant",
 		builder: builder.NewCruxQueryBuilder().
 			Find("entity").
-			WhereT(&model.WhereClause{
+			WhereT(&WhereClause{
 				EntityKey:   "entity",
 				PropertyKey: "crux.db/id",
-				Value:       &model.QueryValue{Type: model.Constant, Key: "anything"},
+				Value:       &QueryValue{Type: Constant, Key: "anything"},
 			}),
 		expectedQuery: `:find [entity] :where [[entity :crux.db/id "anything"]]`,
 	},
@@ -45,14 +45,14 @@ var builderTestCases = []*builderTestSuite{
 		description: "must return correct query for a builder with single find and constructed where clause with constant",
 		builder: builder.NewCruxQueryBuilder().
 			Find("entity").
-			Where("entity", "crux.db/id", "anything", model.Constant),
+			Where("entity", "crux.db/id", "anything", Constant),
 		expectedQuery: `:find [entity] :where [[entity :crux.db/id "anything"]]`,
 	},
 	{
 		description: "must return correct query for a builder with single find, constructed where clause with constant and full results",
 		builder: builder.NewCruxQueryBuilder().
 			Find("entity").
-			Where("entity", "crux.db/id", "anything", model.Constant).
+			Where("entity", "crux.db/id", "anything", Constant).
 			IncludeFullResults(true),
 		expectedQuery: `:find [entity] :where [[entity :crux.db/id "anything"]] :full-results? true`,
 	},
